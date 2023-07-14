@@ -1,0 +1,4 @@
+IncludeClientInJoinMessage: false
+BlockedClients:
+  - example
+  - example2
