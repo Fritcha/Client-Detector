@@ -6,7 +6,7 @@ author: LlamaMC
 description: Allows you to see what client a player is using.
 commands:
   client:
-    description: Gets a player's client.
+    description: Tells you what client a player is using.
     permission: clientdetector.command.client
     aliases:
       - getclient
