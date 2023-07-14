@@ -2,7 +2,6 @@ package me.llamamc.clientdetector;
 
 import me.llamamc.clientdetector.commands.ClientCommand;
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -21,16 +20,20 @@ public final class ClientDetector extends JavaPlugin implements Listener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         if(getConfig().getBoolean("IncludeClientInJoinMessage")) {
-            event.setJoinMessage("");
-            Bukkit.getScheduler().runTaskLater(this, () -> {
-                Bukkit.broadcastMessage("§e" + event.getPlayer().getDisplayName() + " joined the game using " + event.getPlayer().getClientBrandName());
+            if(!event.getPlayer().hasPermission("clientdetector.joinmessage.hide")) {
+                event.setJoinMessage("");
+                Bukkit.getScheduler().runTaskLater(this, () -> {
+                    Bukkit.broadcastMessage("§e" + event.getPlayer().getDisplayName() + " joined the game using " + event.getPlayer().getClientBrandName());
 
-            }, 2L);
+                }, 2L);
+            }
         }
         Bukkit.getScheduler().runTaskLater(this, () -> {
             if(getConfig().getStringList("BlockedClients").contains(event.getPlayer().getClientBrandName())) {
-                event.getPlayer().kickPlayer("§cClient: " + "\"" + event.getPlayer().getClientBrandName() + "\" is not allowed on this server!");
+                if(!event.getPlayer().hasPermission("clientdetector.clientblocker.bypass")) {
+                    event.getPlayer().kickPlayer("§cClient: " + "\"" + event.getPlayer().getClientBrandName() + "\" is not allowed on this server!");
 
+                }
             }
         }, 2L);
     }
