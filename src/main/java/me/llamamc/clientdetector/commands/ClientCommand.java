@@ -22,10 +22,10 @@ public class ClientCommand implements CommandExecutor {
                 } else {
                     Player target = Bukkit.getPlayerExact(args[0]);
                     if (target != null) {
-                        player.sendMessage("§1[§bC§aD§1] §rThe name of " + target.getName() + "'s client is: §a" + target.getClientBrandName());
+                        player.sendMessage("§1§l[§6§lC§a§lD§1§l] §rThe name of " + target.getName() + "'s client is: §a" + target.getClientBrandName());
 
                     } else {
-                        player.sendMessage("§1[§bC§aD§1] §cThat player does not exist!");
+                        player.sendMessage("§1§l[§6§lC§a§lD§1§l] §rThat player does not exist!");
 
                     }
                 }
