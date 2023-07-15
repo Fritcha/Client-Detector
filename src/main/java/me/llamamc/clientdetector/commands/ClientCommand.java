@@ -11,24 +11,26 @@ public class ClientCommand implements CommandExecutor {
     public boolean onCommand(CommandSender executor, Command command, String name, String[] args) {
         if (executor instanceof Player) {
             Player player = (Player) executor;
-            if (args.length < 1) {
-                player.sendMessage("Usage: /client <player>");
-                return true;
+            if(player.hasPermission("clientdetector.command.client")) {
+                if (args.length < 1) {
+                    player.sendMessage("Usage: /client <player>");
+                    return true;
 
-            } else if (args.length > 1) {
-                player.sendMessage("Usage: /client <player>");
-
-            } else {
-                Player target = Bukkit.getPlayerExact(args[0]);
-                if (target != null) {
-                    player.sendMessage("The name of " + target.getName() + "'s client is: §a" + target.getClientBrandName());
+                } else if (args.length > 1) {
+                    player.sendMessage("Usage: /client <player>");
 
                 } else {
-                    player.sendMessage("That player does not exist!");
+                    Player target = Bukkit.getPlayerExact(args[0]);
+                    if (target != null) {
+                        player.sendMessage("§1[§bC§aD§1] §rThe name of " + target.getName() + "'s client is: §a" + target.getClientBrandName());
 
+                    } else {
+                        player.sendMessage("§1[§bC§aD§1] §cThat player does not exist!");
+
+                    }
                 }
+                return true;
             }
-            return true;
         }
     return true;
     }
