@@ -1,4 +1,15 @@
+
+# ------------------------------------ #
+#      CLIENT DETECTOR CONFIG          #
+# ------------------------------------ #
+
 IncludeClientInJoinMessage: false
+# The join message will say "Player joined the game using client" instead of "Player joined the game".
+
 BlockedClients:
   - example
   - example2
+# Players will be kicked from the server if they are using a client listed above.
+
+CrashBlockedClients: false
+# Instead of being kicked from the server this will display up to 65536 elder guardian effects crashing their game.

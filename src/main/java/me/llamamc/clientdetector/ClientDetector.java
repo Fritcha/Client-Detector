@@ -31,8 +31,22 @@ public final class ClientDetector extends JavaPlugin implements Listener {
         Bukkit.getScheduler().runTaskLater(this, () -> {
             if(getConfig().getStringList("BlockedClients").contains(event.getPlayer().getClientBrandName())) {
                 if(!event.getPlayer().hasPermission("clientdetector.clientblocker.bypass")) {
-                    event.getPlayer().kickPlayer("§cClient: " + "\"" + event.getPlayer().getClientBrandName() + "\" is not allowed on this server!");
+                    if(getConfig().getBoolean("CrashBlockedClients")) {
+                        Bukkit.getScheduler().runTaskAsynchronously(this, () -> {
+                            for(int i = 0; i < 65536; i++) {
+                                if(event.getPlayer().isOnline()) {
+                                    event.getPlayer().showElderGuardian();
 
+                                } else {
+                                 return;
+
+                                }
+                            }
+                        });
+                    } else {
+                        event.getPlayer().kickPlayer("§cClient: " + "\"" + event.getPlayer().getClientBrandName() + "\" is not allowed on this server!");
+
+                    }
                 }
             }
         }, 2L);
