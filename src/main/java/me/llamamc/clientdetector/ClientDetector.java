@@ -1,6 +1,8 @@
 package me.llamamc.clientdetector;
 
 import me.llamamc.clientdetector.commands.ClientCommand;
+import me.llamamc.clientdetector.commands.MainCommand;
+import me.llamamc.clientdetector.commands.MainCommandCompletions;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -13,6 +15,8 @@ public final class ClientDetector extends JavaPlugin implements Listener {
     public void onEnable() {
         saveDefaultConfig();
         getCommand("client").setExecutor(new ClientCommand());
+        getCommand("clientdetector").setExecutor(new MainCommand());
+        getCommand("clientdetector").setTabCompleter(new MainCommandCompletions());
         Bukkit.getPluginManager().registerEvents(this, this);
         getLogger().info("Client Detector loaded successfully!");
 
@@ -33,7 +37,7 @@ public final class ClientDetector extends JavaPlugin implements Listener {
                 if(!event.getPlayer().hasPermission("clientdetector.clientblocker.bypass")) {
                     if(getConfig().getBoolean("CrashBlockedClients")) {
                         Bukkit.getScheduler().runTaskAsynchronously(this, () -> {
-                            for(int i = 0; i < 65536; i++) {
+                            for(int i = 0; i < getConfig().getInt("DisplayAmount"); i++) {
                                 if(event.getPlayer().isOnline()) {
                                     event.getPlayer().showElderGuardian();
 

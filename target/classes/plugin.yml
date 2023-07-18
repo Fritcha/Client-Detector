@@ -1,5 +1,5 @@
 name: ClientDetector
-version: '1.1.3'
+version: '1.1.4'
 main: me.llamamc.clientdetector.ClientDetector
 api-version: '1.13'
 author: LlamaMC
@@ -10,6 +10,13 @@ commands:
     permission: clientdetector.command.client
     aliases:
       - getclient
+  clientdetector:
+    aliases:
+      - cd
+      - cdetector
+      - clientd
+    permission: clientdetector.command.main
+    description: The main command of the Client Detector plugin.
 permissions:
   clientdetector.*:
     description: Gives you every permission related to the Client Detector plugin!
@@ -21,8 +28,11 @@ permissions:
     description: Allows you to use all Client Detector commands.
     children:
       - clientdetector.command.client
+      - clientdetector.command.main
   clientdetector.command.client:
     description: Allows you to use the /client command.
+  clientdetector.command.main:
+    description: Allows you to use the /clientdetector command.
   clientdetector.clientblocker.bypass:
     description: Lets you join the server even if you are using a blocked client.
   clientdetector.joinmessage.hide:
