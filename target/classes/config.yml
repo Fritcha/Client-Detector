@@ -16,3 +16,6 @@ CrashBlockedClients: false
 
 DisplayAmount: 65536
 # You normally don't need to change this.
+
+MessagePrefix: "$6$lC$a$lD$b» "
+# The "$" is used for colour codes.

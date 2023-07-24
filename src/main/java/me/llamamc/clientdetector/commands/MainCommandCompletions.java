@@ -14,7 +14,9 @@ public class MainCommandCompletions implements TabCompleter {
             List<String> tabCompletions = new ArrayList<>();
             tabCompletions.add("reload");
             return tabCompletions;
+
         }
         return null;
+
     }
 }

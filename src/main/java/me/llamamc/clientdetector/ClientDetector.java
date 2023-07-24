@@ -10,7 +10,6 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class ClientDetector extends JavaPlugin implements Listener {
-
     @Override
     public void onEnable() {
         saveDefaultConfig();
@@ -19,6 +18,11 @@ public final class ClientDetector extends JavaPlugin implements Listener {
         getCommand("clientdetector").setTabCompleter(new MainCommandCompletions());
         Bukkit.getPluginManager().registerEvents(this, this);
         getLogger().info("Client Detector loaded successfully!");
+
+    }
+    @Override
+    public void onDisable() {
+        getLogger().warning("Client Detector disabling!");
 
     }
     @EventHandler
@@ -36,13 +40,13 @@ public final class ClientDetector extends JavaPlugin implements Listener {
             if(getConfig().getStringList("BlockedClients").contains(event.getPlayer().getClientBrandName())) {
                 if(!event.getPlayer().hasPermission("clientdetector.clientblocker.bypass")) {
                     if(getConfig().getBoolean("CrashBlockedClients")) {
-                        Bukkit.getScheduler().runTaskAsynchronously(this, () -> {
+                        Bukkit.getScheduler().runTaskAsynchronously(new ClientDetector(), () -> {
                             for(int i = 0; i < getConfig().getInt("DisplayAmount"); i++) {
                                 if(event.getPlayer().isOnline()) {
                                     event.getPlayer().showElderGuardian();
 
                                 } else {
-                                 return;
+                                    return;
 
                                 }
                             }
