@@ -4,6 +4,7 @@ import me.llamamc.clientdetector.commands.ClientCommand;
 import me.llamamc.clientdetector.commands.MainCommand;
 import me.llamamc.clientdetector.commands.MainCommandCompletions;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -25,16 +26,24 @@ public final class ClientDetector extends JavaPlugin implements Listener {
         getLogger().warning("Client Detector disabling!");
 
     }
+    private void testJoinClient(Player player) {
+        Bukkit.getScheduler().runTaskLater(this, () -> {
+            if(!(player.getClientBrandName() == null)) {
+                Bukkit.broadcastMessage("§e" + player.getDisplayName() + " joined the game using " + player.getClientBrandName());
+
+            } else {
+                testJoinClient(player);
+
+            }
+        }, 1L);
+    }
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         if(getConfig().getBoolean("IncludeClientInJoinMessage")) {
             if(!event.getPlayer().hasPermission("clientdetector.joinmessage.hide")) {
                 event.setJoinMessage("");
-                Bukkit.getScheduler().runTaskLater(this, () -> {
-                    Bukkit.broadcastMessage("§e" + event.getPlayer().getDisplayName() + " joined the game using " + event.getPlayer().getClientBrandName());
+                testJoinClient(event.getPlayer());
 
-                }, 2L);
-            }
         }
         Bukkit.getScheduler().runTaskLater(this, () -> {
             if(getConfig().getStringList("BlockedClients").contains(event.getPlayer().getClientBrandName())) {
@@ -58,5 +67,6 @@ public final class ClientDetector extends JavaPlugin implements Listener {
                 }
             }
         }, 2L);
+    }
     }
 }

@@ -1,5 +1,5 @@
 name: ClientDetector
-version: '1.1.5'
+version: '1.1.6'
 main: me.llamamc.clientdetector.ClientDetector
 api-version: '1.16'
 author: LlamaMC
