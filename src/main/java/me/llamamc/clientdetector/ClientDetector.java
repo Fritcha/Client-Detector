@@ -33,7 +33,7 @@ public final class ClientDetector extends JavaPlugin implements Listener {
                 Bukkit.getScheduler().runTaskLater(this, () -> {
                     Bukkit.broadcastMessage("§e" + event.getPlayer().getDisplayName() + " joined the game using " + event.getPlayer().getClientBrandName());
 
-                }, 2L);
+                }, 3L);
             }
         }
         Bukkit.getScheduler().runTaskLater(this, () -> {
